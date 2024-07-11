@@ -47,7 +47,7 @@ function ShipManagement() {
 
   // console.log(shipData);
   // console.log(shipInfo);
-  console.log(shipDaily);
+  // console.log(shipDaily);
 
   // shipData 파싱
   const parsedShipData =
@@ -67,7 +67,7 @@ function ShipManagement() {
 
   return (
     <>
-      <div className={`px-6 relative`}>
+      <div className={`p-6 relative`}>
         {showRegisterModal && (
           <>
             <div

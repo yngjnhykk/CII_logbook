@@ -45,14 +45,14 @@ const data = [
 
 function Chart({ parsedShipData, chartData }) {
   const [chartState, setChartState] = useState([]);
-  console.log(chartData);
+  // console.log(parsedShipData);
 
   useEffect(() => {
     if (chartData) {
       setChartState(chartData);
     }
-    if (parsedShipData) {
-      setChartState(parsedShipData); 
+    if (parsedShipData && parsedShipData.length > 0) {
+      setChartState(parsedShipData[0].chart_data);
     }
   }, [chartData, parsedShipData]);
   return (

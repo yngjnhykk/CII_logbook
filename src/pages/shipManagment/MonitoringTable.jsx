@@ -1,7 +1,7 @@
 import React from "react";
 
 function MonitoringTable({ shipDaily }) {
-  const dailyData = shipDaily && shipDaily ? shipDaily : [];
+  const dailyData = shipDaily ? shipDaily : [];
 
   console.log(dailyData);
 
@@ -22,10 +22,10 @@ function MonitoringTable({ shipDaily }) {
           </div>
 
           {dailyData &&
-            dailyData.map((item) => (
+            dailyData.map((item, i) => (
               <div
                 className="grid grid-cols-7 gap-4 text-left px-2 border-t-[1px] border-E3E3E3"
-                key={item.imo_number}
+                key={item.i}
               >
                 <div className="py-2 text-left">{item.imo_number}</div>
                 <div className="py-2 text-left">{item.record_date}</div>

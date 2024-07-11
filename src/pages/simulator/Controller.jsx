@@ -1,9 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Chart from "../shipManagment/Chart";
-import { useMutation } from "react-query";
-import { postInputDataAPI } from "../../api/api";
+import { useMutation, useQuery } from "react-query";
+import { getShipDatasAPI, postInputDataAPI } from "../../api/api";
 
-function Controller({ inputState, handleInputChange }) {
+function Controller({
+  inputState,
+  handleInputChange,
+  imoNumber,
+  imoNumbers,
+  setImoNumber,
+}) {
   const [resultData, setResultData] = useState(null);
   const [chartData, setChartData] = useState([]);
 
@@ -33,19 +39,14 @@ function Controller({ inputState, handleInputChange }) {
   // CII 연산
   const simulateCii = useMutation((data) => postInputDataAPI(data), {
     onSuccess: (data) => {
-      console.log(`cii 연산 결과입니다.`);
-      console.log(data);
       setResultData(data);
       setChartData(data.chartData);
     },
   });
 
   useEffect(() => {
-    console.log("inputData 변경");
     simulateCii.mutate(inputData);
   }, [inputData]);
-
-  console.log(resultData);
 
   return (
     <div className="border-[1px] border-CDCDCD rounded w-full mt-10 px-10 py-10">
@@ -64,10 +65,12 @@ function Controller({ inputState, handleInputChange }) {
             <select
               className="w-[100%] border py-1 text-center rounded border-3B82F6"
               name="shipAccount"
-              value={inputState.shipAccount}
-              onChange={handleInputChange}
+              value={imoNumber}
+              onChange={(e) => setImoNumber(e.target.value)}
             >
-              <option value=""></option>
+              {imoNumbers.map((ship) => (
+                <option value={ship.imo_number}>{ship.imo_number}</option>
+              ))}
             </select>
           </div>
           {/* IMO DCS 정보수집연도(Data collecting year) */}

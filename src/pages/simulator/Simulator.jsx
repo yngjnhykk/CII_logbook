@@ -1,7 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Controller from "./Controller";
+import { useQuery } from "react-query";
+import { getShipDataAPI, getShipDatasAPI } from "../../api/api";
 
 function Simulator() {
+  const [imoNumber, setImoNumber] = useState("");
+  const [imoNumbers, setImoNumbers] = useState([]);
+
+  // shipDatas
+  const { data: shipDatas } = useQuery("shipDatas", getShipDatasAPI, {
+    onSuccess: (data) => {
+      setImoNumbers(data);
+      setImoNumber(data[0].imo_number);
+    },
+  });
+  // console.log(shipDatas);
+
+  const { data: shipData } = useQuery(
+    ["shipData", imoNumber],
+    () => getShipDataAPI(imoNumber),
+    {
+      enabled: !!imoNumber,
+      onSuccess: (data) => {
+        // setInputState(data);
+        console.log(data);
+      },
+    }
+  );
+
   const [inputState, setInputState] = useState({
     shipAccount: "",
     shipType: "Bulk Carrier",
@@ -19,13 +45,49 @@ function Simulator() {
     dataCollectingYear: "2024",
   });
 
+  useEffect(() => {
+    if (shipData && shipData.length > 0) {
+      const data = shipData[0];
+      // JSON 파싱을 시도하고, 실패하면 빈 객체를 반환
+      const parsedFuels = data.fuels ? JSON.parse(data.fuels) : {};
+      const parsedRating = data.rating ? JSON.parse(data.rating) : {};
+
+      setInputState({
+        ...inputState,
+        shipAccount: data.ship_name,
+        shipType: data.ship_type,
+        dwt: data.summer_load_dwt,
+        grossTonnage: data.gross_tonnage,
+        totalDistanceTravelled: data.total_distance_travelled,
+        dieselGasOilConsumption:
+          parsedFuels["diesel_gas_oil_consumption"] || "",
+        lightFuelOilConsumption:
+          parsedFuels["light_fuel_oil_consumption"] || "",
+        heavyFuelOilConsumption:
+          parsedFuels["heavy_fuel_oil_consumption"] || "",
+        lpgPropaneConsumption: parsedFuels["lpg_propane_consumption"] || "",
+        lpgButaneConsumption: parsedFuels["lpg_butane_consumption"] || "",
+        lngConsumption: parsedFuels["lng_consumption"] || "",
+        methanolConsumption: parsedFuels["methanol_consumption"] || "",
+        ethanolConsumption: parsedFuels["ethanol_consumption"] || "",
+        dataCollectingYear: data.record_date.split("-")[0], // 'YYYY-MM-DD' format
+        // 레이팅 정보 추가
+        ratingA: parsedRating.A || "",
+        ratingB: parsedRating.B || "",
+        ratingC: parsedRating.C || "",
+        ratingD: parsedRating.D || "",
+        ratingE: parsedRating.E || "",
+      });
+    }
+  }, [shipData]); // Include shipData in the dependency array to trigger the effect when shipData updates
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputState({ ...inputState, [name]: value });
   };
 
   return (
-    <div className="px-6">
+    <div className="p-6">
       <div className="text-[32px] font-semibold">CII Simulator</div>
       <div className="text-[20px] font-medium mt-8">
         선박운항탄소집약도 시뮬레이터
@@ -42,6 +104,8 @@ function Simulator() {
       <Controller
         inputState={inputState}
         handleInputChange={handleInputChange}
+        imoNumbers={imoNumbers}
+        setImoNumber={setImoNumber}
       />
     </div>
   );
