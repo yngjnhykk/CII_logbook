@@ -47,7 +47,7 @@ function EditModal({ onClickEditButton, imoNumber }) {
 
   const queryClient = useQueryClient();
 
-  // onClick 삭제 버튼
+  // onClick 수정 버튼
   const reviseMutation = useMutation(postReviseShipAPI, {
     onSuccess: (data) => {
       console.log("success", data);
@@ -65,6 +65,7 @@ function EditModal({ onClickEditButton, imoNumber }) {
       queryClient.invalidateQueries("shipDatas");
       queryClient.invalidateQueries("shipData");
       queryClient.invalidateQueries("shipInfo");
+      queryClient.invalidateQueries("shipDaily");
 
       onClickEditButton();
     },
@@ -170,7 +171,13 @@ function EditModal({ onClickEditButton, imoNumber }) {
         <button
           className="w-1/2 font-medium text-center bg-FF6262 p-2 text-white rounded"
           onClick={() => {
-            deleteMutation.mutate(imoNumber);
+            if (
+              window.confirm(
+                "저장되어 있던 CII 모니터링 데이터도 함께 지웁니다. \n계속 진행하시겠습니까?"
+              )
+            ) {
+              deleteMutation.mutate(imoNumber);
+            }
           }}
         >
           삭제
