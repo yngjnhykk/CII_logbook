@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
 function Chart({ parsedShipData, chartData }) {
   const [chartState, setChartState] = useState([]);
   console.log(parsedShipData);
@@ -64,8 +63,7 @@ function Chart({ parsedShipData, chartData }) {
               type="monotone"
               dataKey="attainedCII"
               stroke="#2196F3"
-              strokeWidth={3}
-              // strokeDasharray="5 5"
+              strokeWidth={6}
               name="Attained CII"
             />
           </LineChart>
