@@ -3,7 +3,7 @@ import React from "react";
 function MonitoringTable({ shipDaily }) {
   const dailyData = shipDaily ? shipDaily : [];
 
-  console.log(dailyData);
+  // console.log(dailyData);
 
   return (
     <div className="mt-20">

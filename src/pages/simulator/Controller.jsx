@@ -41,6 +41,7 @@ function Controller({
     onSuccess: (data) => {
       setResultData(data);
       setChartData(data.chartData);
+      console.log(data.chartData);
     },
   });
 
@@ -68,8 +69,10 @@ function Controller({
               value={imoNumber}
               onChange={(e) => setImoNumber(e.target.value)}
             >
-              {imoNumbers.map((ship) => (
-                <option value={ship.imo_number}>{ship.imo_number}</option>
+              {imoNumbers.map((ship, i) => (
+                <option value={ship.imo_number} key={i}>
+                  {ship.imo_number}
+                </option>
               ))}
             </select>
           </div>

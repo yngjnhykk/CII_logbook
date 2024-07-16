@@ -2,9 +2,12 @@ import axios from "axios";
 
 // cii 계산
 export const postInputDataAPI = async (inputData) => {
-  const response = await axios.post(`${import.meta.env.VITE_API_KEY}/cii`, {
-    ...inputData,
-  });
+  const response = await axios.post(
+    `${import.meta.env.VITE_API_KEY}/calculateCii`,
+    {
+      ...inputData,
+    }
+  );
   return response.data;
 };
 

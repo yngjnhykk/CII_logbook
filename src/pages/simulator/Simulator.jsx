@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Controller from "./Controller";
 import { useQuery } from "react-query";
-import { getShipDataAPI, getShipDatasAPI } from "../../api/api";
+import { getShipDataAPI, getShipDatasAPI, getShipInfoAPI } from "../../api/api";
 
 function Simulator() {
   const [imoNumber, setImoNumber] = useState("");
@@ -19,6 +19,18 @@ function Simulator() {
   const { data: shipData } = useQuery(
     ["shipData", imoNumber],
     () => getShipDataAPI(imoNumber),
+    {
+      enabled: !!imoNumber,
+      onSuccess: (data) => {
+        // setInputState(data);
+        console.log(data);
+      },
+    }
+  );
+
+  const { data: shipInfo } = useQuery(
+    ["shipInfo", imoNumber],
+    () => getShipInfoAPI(imoNumber),
     {
       enabled: !!imoNumber,
       onSuccess: (data) => {
@@ -46,6 +58,32 @@ function Simulator() {
   });
 
   useEffect(() => {
+    if (shipInfo && shipInfo.length > 0) {
+      const data = shipInfo[0];
+      const parsedRating = data.rating ? JSON.parse(data.rating) : {};
+
+      setInputState({
+        ...inputState,
+        shipAccount: data.ship_name,
+        shipType: data.ship_type,
+        dwt: data.summer_load_dwt,
+        grossTonnage: data.gross_tonnage,
+        totalDistanceTravelled: "",
+        dieselGasOilConsumption: "",
+        lightFuelOilConsumption: "",
+        heavyFuelOilConsumption: "",
+        lpgPropaneConsumption: "",
+        lpgButaneConsumption: "",
+        lngConsumption: "",
+        methanolConsumption: "",
+        ethanolConsumption: "",
+        ratingA: parsedRating.A || "",
+        ratingB: parsedRating.B || "",
+        ratingC: parsedRating.C || "",
+        ratingD: parsedRating.D || "",
+        ratingE: parsedRating.E || "",
+      });
+    }
     if (shipData && shipData.length > 0) {
       const data = shipData[0];
       // JSON 파싱을 시도하고, 실패하면 빈 객체를 반환
@@ -79,7 +117,7 @@ function Simulator() {
         ratingE: parsedRating.E || "",
       });
     }
-  }, [shipData]); // Include shipData in the dependency array to trigger the effect when shipData updates
+  }, [shipData, shipInfo]); // Include shipData in the dependency array to trigger the effect when shipData updates
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
