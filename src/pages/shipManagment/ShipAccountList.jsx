@@ -12,7 +12,7 @@ function ShipAccountList({
   const { data: shipDatas } = useQuery("shipDatas", getShipDatasAPI);
 
   return (
-    <div className="w-full border border-CDCDCD rounded py-5 px-2">
+    <div className="w-full h-full max-h-[695px] border border-CDCDCD rounded py-5 px-2 overflow-auto">
       <div className="text-[24px] font-semibold">ShipAccountList</div>
       <div className="flex justify-between text-[14px] font-light text-757575">
         <div>선박을 선택해 주세요.</div>

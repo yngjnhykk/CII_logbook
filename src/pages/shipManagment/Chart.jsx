@@ -27,8 +27,8 @@ function Chart({ parsedShipData, chartData }) {
   return (
     <div className="mt-20">
       <div className="text-[16px] mb-10">5. 선박운항탄소집약도 그래프</div>
-      <div className="ml-[-50px]">
-        <ResponsiveContainer width="103%" height={250}>
+      <div className="ml-[-50px] flex justify-center">
+        <ResponsiveContainer width="93%" height={350}>
           <LineChart
             data={chartState}
             margin={{ top: 20, right: 50, left: 50, bottom: 0 }}
@@ -36,7 +36,12 @@ function Chart({ parsedShipData, chartData }) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="year"
-              label={{ value: "year", position: "insideBottom", offset: 0 }}
+              label={{
+                value: "year",
+                position: "insideBottom",
+                offset: 0,
+                dy: 10,
+              }}
             />
 
             <YAxis
@@ -45,6 +50,8 @@ function Chart({ parsedShipData, chartData }) {
                 value: "Attained CII",
                 angle: -90,
                 position: "insideLeft",
+                dx: -20,
+                dy: 40,
               }}
             />
 
@@ -52,7 +59,7 @@ function Chart({ parsedShipData, chartData }) {
             <Legend
               verticalAlign="bottom"
               align="center"
-              wrapperStyle={{ paddingTop: "20px" }}
+              wrapperStyle={{ paddingTop: "30px" }}
             />
             <Line type="monotone" dataKey="A" stroke="#008000" name="A" />
             <Line type="monotone" dataKey="B" stroke="#90EE90" name="B" />

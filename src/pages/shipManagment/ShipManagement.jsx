@@ -176,7 +176,8 @@ function ShipManagement() {
                     {/* key */}
                     <div className="w-[55%] bg-F5F5F5 flex flex-row">
                       <div className="w-[33%] p-2 m-auto ">
-                        연료유 사용량 (M/T)
+                        <div>연료유</div>
+                        사용량 (M/T)
                       </div>
                       <div className="border-l-[1px] border-l-E3E3E3">
                         <div className="border-b-[1px] border-b-E3E3E3 font-medium flex">

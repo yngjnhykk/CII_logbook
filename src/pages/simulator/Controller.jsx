@@ -389,7 +389,9 @@ function Controller({
             </div>
 
             {/* 5. 선박운항탄소집약도 그래프 */}
-            <Chart chartData={chartData} />
+            <div className="w-[114%]">
+              <Chart chartData={chartData} />
+            </div>
             {/* <button onClick={() => simulateCii.mutate(inputData)}> 전송</button> */}
           </div>
         </div>
