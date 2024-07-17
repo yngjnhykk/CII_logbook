@@ -111,7 +111,9 @@ function EditModal({ onClickEditButton, imoNumber }) {
               <option value="Tanker">Tanker</option>
               <option value="Container Ship">Container Ship</option>
               <option value="General Cargo Ship">General Cargo Ship</option>
-              <option value="Refrigerated Carrier">Refrigerated Carrier</option>
+              <option value="Refrigerated Cargo Carrier">
+                Refrigerated Cargo Carrier
+              </option>
               <option value="Combination Carrier">Combination Carrier</option>
               <option value="LNG Carrier">LNG Carrier</option>
               <option value="Ro-Ro Cargo Ship (Vehicle Carrier)">

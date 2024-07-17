@@ -127,8 +127,8 @@ function Controller({
                       <option value="General Cargo Ship">
                         General Cargo Ship
                       </option>
-                      <option value="Refrigerated Carrier">
-                        Refrigerated Carrier
+                      <option value="Refrigerated Cargo Carrier">
+                        Refrigerated Cargo Carrier
                       </option>
                       <option value="Combination Carrier">
                         Combination Carrier

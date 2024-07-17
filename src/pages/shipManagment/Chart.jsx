@@ -37,7 +37,7 @@ function Chart({ parsedShipData, chartData }) {
             <XAxis
               dataKey="year"
               label={{
-                value: "year",
+                value: "Year",
                 position: "insideBottom",
                 offset: 0,
                 dy: 10,
