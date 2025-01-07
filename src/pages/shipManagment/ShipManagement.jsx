@@ -96,6 +96,7 @@ function ShipManagement() {
             />
           </>
         )}
+
         <div className="flex justify-between ">
           <div className="text-[32px] font-semibold">Ship Management</div>
           <button
@@ -105,6 +106,7 @@ function ShipManagement() {
             시뮬레이터 페이지로 이동
           </button>
         </div>
+
         <div className="text-[20px] font-medium mt-8">선박 탄소강도 관리</div>
         <div className="text-[16px] font-medium mt-4 text-757575 ">
           Verssel CII Tracker

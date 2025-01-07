@@ -138,6 +138,7 @@ function Simulator() {
           선박 관리 페이지로 이동
         </button>
       </div>
+
       <div className="text-[20px] font-medium mt-8">
         선박운항탄소집약도 시뮬레이터
       </div>
